@@ -22,6 +22,7 @@ class App extends ConsumerWidget {
           backgroundColor: Color(0xFFECA5B8),
         ),
         scaffoldBackgroundColor: const Color(0xFFFAE5EB),
+        indicatorColor: Color(0xFFE76992),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             maximumSize: const Size.fromWidth(double.infinity),

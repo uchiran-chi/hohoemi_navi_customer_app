@@ -6,6 +6,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../domain/reaction/reaction.dart';
 import '../domain/reaction_controller.dart';
 
+//ホーム画面
 class Home extends ConsumerWidget {
   const Home({super.key});
 
@@ -13,11 +14,10 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     DateTime now = DateTime.now();
 
-    Future<List<Reaction?>> widgetBuilder()async{
+    Future<List<Reaction?>> widgetBuilder() async {
       List<Reaction> reactionList = ref.watch(reactionProvider);
-      for(int i = 0; i <= reactionList.length; i++){
-        if(reactionList[i].sendAt.month == now.month){
-          print('reactionList::${reactionList[i]}');
+      for (int i = 0; i <= reactionList.length; i++) {
+        if (reactionList[i].sendAt.month == now.month) {
         }
       }
       return reactionList;
@@ -25,14 +25,26 @@ class Home extends ConsumerWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('徳島　幸子　さん'),
+          title: const Text('徳島　幸子　さん'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                ref.watch(reactionProvider.notifier).getReactionState(1);
+              },
+            )
+          ],
         ),
         body: FutureBuilder(
           future: widgetBuilder(),
-          builder: (context, snapshot){
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return Text('roading now...');
-            }else{
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color(0xFFE76992),
+                )
+              );
+            } else {
               return Container(
                 margin: const EdgeInsets.all(10),
                 child: Column(
@@ -50,27 +62,30 @@ class Home extends ConsumerWidget {
                           cellMargin: EdgeInsets.all(14),
                         ),
                         calendarBuilders: CalendarBuilders(
-                          markerBuilder: (context, date, events){
-                            List<Reaction?> reactionList = ref.watch(reactionProvider);
-                            Reaction? reaction = reactionList.firstWhereOrNull((reaction) =>
-                            reaction?.sendAt.year == date.year &&
-                                reaction?.sendAt.month == date.month &&
-                                reaction?.sendAt.day == date.day);
-                            if (reaction != null) {
-                              return Container(
-                                decoration: BoxDecoration(
+                            markerBuilder: (context, date, events) {
+                          List<Reaction?> reactionList =
+                              ref.watch(reactionProvider);
+                          Reaction? reaction = reactionList.lastWhereOrNull(
+                              (reaction) =>
+                                  reaction?.sendAt.year == date.year &&
+                                  reaction?.sendAt.month == date.month &&
+                                  reaction?.sendAt.day == date.day);
+                          if (reaction != null) {
+                            return Container(
+                              decoration: BoxDecoration(
                                   // color: Colors.amber
-                                ),
-                                padding: EdgeInsets.only(top:10),
-                                margin: EdgeInsets.only(top: 20),
-                                child: Image(image: AssetImage('assets/${reaction.reaction}.png')),
-                              );
-                            } else {
-                              return SizedBox();
-                            }
-                            // return hasReaction ? Icon(Icons.favorite, color: Colors.black) : Text('');
+                                  ),
+                              padding: EdgeInsets.only(top: 10),
+                              margin: EdgeInsets.only(top: 20),
+                              child: Image(
+                                  image: AssetImage(
+                                      'assets/${reaction.reaction}.png')),
+                            );
+                          } else {
+                            return SizedBox();
                           }
-                        ),
+                          // return hasReaction ? Icon(Icons.favorite, color: Colors.black) : Text('');
+                        }),
                         focusedDay: DateTime.now(),
                         firstDay: DateTime(2024, 1, 1),
                         lastDay: DateTime(2024, 12, 31),

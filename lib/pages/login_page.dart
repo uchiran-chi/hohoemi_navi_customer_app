@@ -3,10 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../components/input_field.dart';
-import '../data/api_service.dart';
-import '../domain/reaction/reaction.dart';
 import '../domain/reaction_controller.dart';
 
+//ログイン画面
 class LoginPage extends ConsumerWidget{
   const LoginPage({super.key});
 
