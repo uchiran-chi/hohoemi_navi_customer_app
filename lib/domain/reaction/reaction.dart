@@ -12,7 +12,9 @@ class Reaction with _$Reaction {
     required int userId,
     @DateTimeConverter() required DateTime sendAt,
     @Default('') String reaction,
+    @Default('') String comment,
   }) = _Reaction;
 
-  factory Reaction.fromJson(Map<String, dynamic> json) => _$ReactionFromJson(json);
+  factory Reaction.fromJson(Map<String, dynamic> json) =>
+      _$ReactionFromJson(json);
 }

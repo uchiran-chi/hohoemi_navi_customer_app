@@ -1,10 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../domain/reaction/reaction.dart';
 import '../domain/reaction_controller.dart';
+import '../domain/user_controller.dart';
 
 //ホーム画面
 class Home extends ConsumerWidget {
@@ -14,18 +16,44 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     DateTime now = DateTime.now();
 
+    final user = ref.watch(userProvider);
+
     Future<List<Reaction?>> widgetBuilder() async {
       List<Reaction> reactionList = ref.watch(reactionProvider);
       for (int i = 0; i <= reactionList.length; i++) {
-        if (reactionList[i].sendAt.month == now.month) {
-        }
+        if (reactionList[i].sendAt.month == now.month) {}
       }
       return reactionList;
     }
 
+    void _showSimpleDialog(Reaction reaction) async {
+      print(reaction.sendAt);
+      var result = await showDialog(
+        context: context,
+        builder: (_) {
+          return SimpleDialog(
+            title: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Text(DateFormat('yyyy/MM/dd hh:mm')
+                  .format(reaction.sendAt.toLocal())), // TODO: ＋9時間
+            ]),
+            children: <Widget>[
+              Image(
+                image: AssetImage('assets/${reaction.reaction}.png'),
+                height: 300,
+              ),
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Text(reaction.comment),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
-          title: const Text('徳島　幸子　さん'),
+          title: Text('${user?.protectedName}さん'),
           actions: [
             IconButton(
               icon: const Icon(Icons.refresh),
@@ -40,10 +68,9 @@ class Home extends ConsumerWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                child: CircularProgressIndicator(
-                  color: Color(0xFFE76992),
-                )
-              );
+                  child: CircularProgressIndicator(
+                color: Color(0xFFE76992),
+              ));
             } else {
               return Container(
                 margin: const EdgeInsets.all(10),
@@ -71,16 +98,20 @@ class Home extends ConsumerWidget {
                                   reaction?.sendAt.month == date.month &&
                                   reaction?.sendAt.day == date.day);
                           if (reaction != null) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                  // color: Colors.amber
-                                  ),
-                              padding: EdgeInsets.only(top: 10),
-                              margin: EdgeInsets.only(top: 20),
-                              child: Image(
-                                  image: AssetImage(
-                                      'assets/${reaction.reaction}.png')),
-                            );
+                            return InkWell(
+                                onTap: () {
+                                  _showSimpleDialog(reaction);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      // color: Colors.amber
+                                      ),
+                                  padding: EdgeInsets.only(top: 10),
+                                  margin: EdgeInsets.only(top: 20),
+                                  child: Image(
+                                      image: AssetImage(
+                                          'assets/${reaction.reaction}.png')),
+                                ));
                           } else {
                             return SizedBox();
                           }
