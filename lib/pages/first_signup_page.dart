@@ -102,6 +102,12 @@ class FirstSignUpPage extends ConsumerWidget {
                     if (context.mounted) {
                       context.push('/home');
                     }
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('新規会員登録が完了しました。'),
+                      ),
+                    );
                   } catch (e) {
                     await showDialog(
                       context: context,

@@ -38,17 +38,22 @@ class LoginPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'ほほえみ NAVI',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w900,
-                color: Colors.white,
+            const Padding(
+              padding: EdgeInsets.only(bottom: 130),
+              child: Text(
+                'ほほえみ Navi',
+                style: TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xFFE84B84),
+                ),
               ),
             ),
-            const SizedBox(height: 180),
             InputNumberField(text: '電話番号', controller: tellController),
-            InputField(text: 'パスワード', controller: passwordController),
+            InputField(
+                text: 'パスワード',
+                controller: passwordController,
+                obscureText: true),
             const SizedBox(
               height: 20,
             ),
@@ -63,6 +68,12 @@ class LoginPage extends ConsumerWidget {
                     await reactionState.getReactionState(user!.id);
                     if (context.mounted) {
                       context.push('/home');
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('ログインが完了しました。'),
+                        ),
+                      );
                     }
                   } catch (e) {
                     await showDialog(

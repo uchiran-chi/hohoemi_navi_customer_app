@@ -34,16 +34,19 @@ class Home extends ConsumerWidget {
           return SimpleDialog(
             title: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Text(DateFormat('yyyy/MM/dd hh:mm')
-                  .format(reaction.sendAt.toLocal())), // TODO: ＋9時間
+                  .format(reaction.sendAt.toLocal())),
             ]),
             children: <Widget>[
               Image(
                 image: AssetImage('assets/${reaction.reaction}.png'),
-                height: 300,
+                height: 250,
               ),
               Container(
                 padding: const EdgeInsets.all(20),
-                child: Text(reaction.comment),
+                child: Text(
+                  reaction.comment,
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
             ],
           );
@@ -78,8 +81,9 @@ class Home extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: TableCalendar(
+                        locale: 'ja_JP',
                         shouldFillViewport: true,
-                        headerStyle: const HeaderStyle(
+                        headerStyle: HeaderStyle(
                           titleCentered: true,
                           formatButtonVisible: false,
                         ),

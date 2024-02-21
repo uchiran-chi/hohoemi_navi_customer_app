@@ -6,8 +6,13 @@ import 'package:flutter/services.dart';
 class InputField extends StatefulWidget {
   final String text;
   final TextEditingController controller;
+  final bool? obscureText;
 
-  InputField({super.key, required this.text, required this.controller});
+  InputField(
+      {super.key,
+      required this.text,
+      required this.controller,
+      this.obscureText});
 
   @override
   _InputFieldState createState() => _InputFieldState();
@@ -20,7 +25,9 @@ class _InputFieldState extends State<InputField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(widget.text, textAlign: TextAlign.left),
-        TextField(controller: widget.controller),
+        TextField(
+            controller: widget.controller,
+            obscureText: widget.obscureText ?? false),
       ],
     );
   }

@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hohoemi_navi_customer_app/route/route_controller.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
-  runApp(const ProviderScope(child: App()));
+  // runApp(const ProviderScope(child: App()));
+
+  await initializeDateFormatting('ja_JP').then(
+    (_) {
+      runApp(
+        const ProviderScope(
+          child: App(),
+        ),
+      );
+    },
+  );
 }
 
 class App extends ConsumerWidget {
@@ -14,6 +25,8 @@ class App extends ConsumerWidget {
     final router = ref.watch(routeProvider);
 
     return MaterialApp.router(
+      title: 'hohoemi-navi-for-partner',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           useMaterial3: true,
           appBarTheme: const AppBarTheme(
