@@ -69,7 +69,7 @@ class FirstSignUpPage extends ConsumerWidget {
                   text: '氏名',
                   controller: nameController,
                 ),
-                InputField(text: '電話番号', controller: tellController),
+                InputNumberField(text: '電話番号', controller: tellController),
                 InputField(text: 'パスワード', controller: passwordController),
               ],
             ),
@@ -78,7 +78,8 @@ class FirstSignUpPage extends ConsumerWidget {
               widgetList: [
                 InputField(text: '氏名', controller: protectedNameController),
                 InputField(text: '住所', controller: protectedAddressController),
-                InputField(text: '電話番号', controller: protectedTellController),
+                InputNumberField(
+                    text: '電話番号', controller: protectedTellController),
               ],
             ),
             const SizedBox(

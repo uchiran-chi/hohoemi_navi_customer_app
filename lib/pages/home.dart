@@ -61,7 +61,7 @@ class Home extends ConsumerWidget {
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () {
-                ref.watch(reactionProvider.notifier).getReactionState(1);
+                ref.watch(reactionProvider.notifier).getReactionState(user!.id);
               },
             )
           ],
@@ -107,9 +107,6 @@ class Home extends ConsumerWidget {
                                   _showSimpleDialog(reaction);
                                 },
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      // color: Colors.amber
-                                      ),
                                   padding: EdgeInsets.only(top: 10),
                                   margin: EdgeInsets.only(top: 20),
                                   child: Image(
