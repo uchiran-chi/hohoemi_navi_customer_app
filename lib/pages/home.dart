@@ -83,11 +83,11 @@ class Home extends ConsumerWidget {
                       child: TableCalendar(
                         locale: 'ja_JP',
                         shouldFillViewport: true,
-                        headerStyle: HeaderStyle(
+                        headerStyle: const HeaderStyle(
                           titleCentered: true,
                           formatButtonVisible: false,
                         ),
-                        calendarStyle: CalendarStyle(
+                        calendarStyle: const CalendarStyle(
                           markersAlignment: Alignment.bottomCenter,
                           cellPadding: EdgeInsets.all(1),
                           cellMargin: EdgeInsets.all(14),

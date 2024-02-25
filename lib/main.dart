@@ -25,7 +25,7 @@ class App extends ConsumerWidget {
     final router = ref.watch(routeProvider);
 
     return MaterialApp.router(
-      title: 'hohoemi-navi-for-partner',
+      title: 'ほほえみNavi',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           useMaterial3: true,
@@ -38,7 +38,9 @@ class App extends ConsumerWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               maximumSize: const Size.fromWidth(double.infinity),
-              padding: const EdgeInsets.all(10),
+              fixedSize: const Size(double.infinity, 40),
+              textStyle:
+                  const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
@@ -49,7 +51,9 @@ class App extends ConsumerWidget {
           outlinedButtonTheme: OutlinedButtonThemeData(
             style: ElevatedButton.styleFrom(
               maximumSize: const Size.fromWidth(double.infinity),
-              padding: const EdgeInsets.all(10),
+              fixedSize: const Size(double.infinity, 40),
+              textStyle:
+                  const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
