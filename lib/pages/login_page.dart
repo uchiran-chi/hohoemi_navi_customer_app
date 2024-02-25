@@ -6,8 +6,7 @@ import 'package:hohoemi_navi_customer_app/domain/user_controller.dart';
 import '../components/input_field.dart';
 import '../domain/reaction_controller.dart';
 
-// TODO: メモリーリーク
-// TODO: const context
+// HACK: データの持ち方要検討
 final tellControllerProvider = Provider<TextEditingController>((ref) {
   return TextEditingController();
 });

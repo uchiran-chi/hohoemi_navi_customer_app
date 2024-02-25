@@ -4,6 +4,9 @@ import 'package:http/http.dart' as http;
 
 import '../domain/reaction/reaction.dart';
 
+const String baseUrl =
+    'http://hohoemi-navi-lb-1845998535.us-east-1.elb.amazonaws.com';
+
 class LoginResponse {
   final int id;
 
@@ -65,13 +68,13 @@ class User {
   }
 }
 
-// TODO: ページ変わるたびに取得するのが良さそう。
+// HACK: 日付に応じて取得
 Future<List<Reaction>> getReactions(int userId) async {
   try {
     DateTime now = DateTime.now();
     List<Reaction> reactionList = [];
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:3001/api/v1/users/${userId}/reactions'
+      Uri.parse('$baseUrl/api/v1/users/$userId/reactions'
           '?from=${DateTime(now.year, now.month, 1, 0, 0, 0)}'
           '&to=${DateTime(now.year, now.month + 1, 1, 0, 0, 0).add(const Duration(days: -1))}'),
     );
@@ -96,7 +99,7 @@ Future<List<Reaction>> getReactions(int userId) async {
 Future<LoginResponse> login(String tell, String password) async {
   try {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3001/api/v1/users/login'),
+      Uri.parse('$baseUrl/api/v1/users/login'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -124,7 +127,7 @@ Future<CreateUserResponse> createUser(String name, String tell, String password,
     String protectedName, String protectedAddress, String protectedTell) async {
   try {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3001/api/v1/users'),
+      Uri.parse('$baseUrl/api/v1/users'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -161,7 +164,7 @@ Future<CreateUserResponse> getReaction(
     String protectedTell) async {
   try {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3001/api/v1/users'),
+      Uri.parse('$baseUrl/api/v1/users'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -192,7 +195,7 @@ Future<CreateUserResponse> getReaction(
 Future<User> getUser(int id) async {
   try {
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:3001/api/v1/users/$id'),
+      Uri.parse('$baseUrl/api/v1/users/$id'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },

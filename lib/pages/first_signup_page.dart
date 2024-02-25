@@ -7,8 +7,7 @@ import '../components/signup_container.dart';
 import '../domain/reaction_controller.dart';
 import '../domain/user_controller.dart';
 
-// TODO: メモリーリーク
-// TODO: const context
+// HACK: データの持ち方要検討
 final nameControllerProvider = Provider((ref) {
   return TextEditingController();
 });
