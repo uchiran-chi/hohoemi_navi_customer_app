@@ -25,6 +25,7 @@ mixin _$Reaction {
   @DateTimeConverter()
   DateTime get sendAt => throw _privateConstructorUsedError;
   String get reaction => throw _privateConstructorUsedError;
+  String get comment => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $ReactionCopyWith<$Res> {
       {int id,
       int userId,
       @DateTimeConverter() DateTime sendAt,
-      String reaction});
+      String reaction,
+      String comment});
 }
 
 /// @nodoc
@@ -61,6 +63,7 @@ class _$ReactionCopyWithImpl<$Res, $Val extends Reaction>
     Object? userId = null,
     Object? sendAt = null,
     Object? reaction = null,
+    Object? comment = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -79,6 +82,10 @@ class _$ReactionCopyWithImpl<$Res, $Val extends Reaction>
           ? _value.reaction
           : reaction // ignore: cast_nullable_to_non_nullable
               as String,
+      comment: null == comment
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -95,7 +102,8 @@ abstract class _$$ReactionImplCopyWith<$Res>
       {int id,
       int userId,
       @DateTimeConverter() DateTime sendAt,
-      String reaction});
+      String reaction,
+      String comment});
 }
 
 /// @nodoc
@@ -113,6 +121,7 @@ class __$$ReactionImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? sendAt = null,
     Object? reaction = null,
+    Object? comment = null,
   }) {
     return _then(_$ReactionImpl(
       id: null == id
@@ -131,6 +140,10 @@ class __$$ReactionImplCopyWithImpl<$Res>
           ? _value.reaction
           : reaction // ignore: cast_nullable_to_non_nullable
               as String,
+      comment: null == comment
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -142,7 +155,8 @@ class _$ReactionImpl implements _Reaction {
       {required this.id,
       required this.userId,
       @DateTimeConverter() required this.sendAt,
-      this.reaction = ''});
+      this.reaction = '',
+      this.comment = ''});
 
   factory _$ReactionImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReactionImplFromJson(json);
@@ -157,10 +171,13 @@ class _$ReactionImpl implements _Reaction {
   @override
   @JsonKey()
   final String reaction;
+  @override
+  @JsonKey()
+  final String comment;
 
   @override
   String toString() {
-    return 'Reaction(id: $id, userId: $userId, sendAt: $sendAt, reaction: $reaction)';
+    return 'Reaction(id: $id, userId: $userId, sendAt: $sendAt, reaction: $reaction, comment: $comment)';
   }
 
   @override
@@ -172,12 +189,14 @@ class _$ReactionImpl implements _Reaction {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.sendAt, sendAt) || other.sendAt == sendAt) &&
             (identical(other.reaction, reaction) ||
-                other.reaction == reaction));
+                other.reaction == reaction) &&
+            (identical(other.comment, comment) || other.comment == comment));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userId, sendAt, reaction);
+  int get hashCode =>
+      Object.hash(runtimeType, id, userId, sendAt, reaction, comment);
 
   @JsonKey(ignore: true)
   @override
@@ -198,7 +217,8 @@ abstract class _Reaction implements Reaction {
       {required final int id,
       required final int userId,
       @DateTimeConverter() required final DateTime sendAt,
-      final String reaction}) = _$ReactionImpl;
+      final String reaction,
+      final String comment}) = _$ReactionImpl;
 
   factory _Reaction.fromJson(Map<String, dynamic> json) =
       _$ReactionImpl.fromJson;
@@ -212,6 +232,8 @@ abstract class _Reaction implements Reaction {
   DateTime get sendAt;
   @override
   String get reaction;
+  @override
+  String get comment;
   @override
   @JsonKey(ignore: true)
   _$$ReactionImplCopyWith<_$ReactionImpl> get copyWith =>

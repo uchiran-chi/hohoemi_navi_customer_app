@@ -1,17 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class InputField extends StatelessWidget {
-  const InputField({super.key, required this.text});
+// TODO: statefulとstateless
 
+class InputField extends StatefulWidget {
   final String text;
+  final TextEditingController controller;
+  final bool? obscureText;
 
+  InputField(
+      {super.key,
+      required this.text,
+      required this.controller,
+      this.obscureText});
+
+  @override
+  _InputFieldState createState() => _InputFieldState();
+}
+
+class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(text, textAlign: TextAlign.left),
-        const TextField(),
+        Text(widget.text, textAlign: TextAlign.left),
+        TextField(
+            controller: widget.controller,
+            obscureText: widget.obscureText ?? false),
+      ],
+    );
+  }
+}
+
+class InputNumberField extends StatefulWidget {
+  final String text;
+  final TextEditingController controller;
+
+  InputNumberField({super.key, required this.text, required this.controller});
+
+  @override
+  _InputNumberFieldState createState() => _InputNumberFieldState();
+}
+
+class _InputNumberFieldState extends State<InputNumberField> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(widget.text, textAlign: TextAlign.left),
+        TextField(
+            controller: widget.controller,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly]),
       ],
     );
   }
